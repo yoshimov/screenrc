@@ -1,0 +1,28 @@
+# status line
+#  %{= wk}  .. clear color, background white, foreground black
+#  %-Lw %+Lw  .. Lower window list, higher window list with flag
+#  %-w %+w  .. Lower window list, higher window list without flag
+#  %n .. Window number
+#  %f .. Window flag
+#  %t .. Window title
+#  %= .. space padding
+#  %H .. Host name
+#  %l .. Load average
+ 
+windowlist string "%n:%t"
+hardstatus alwayslastline "{= bw}%-w%{= wk}%n:%t%{= bw}%+w %{= wk}%=%{= gw} %H (%l)"
+ 
+# scroll buffer
+defscrollback 4000
+ 
+# visual bell
+vbell on
+ 
+# window split
+bind x command -c REGION
+bind -c REGION 3 split -v
+bind -c REGION 2 split
+bind -c REGION 1 only
+bind -c REGION 0 remove
+bind -c REGION o focus
+bind -c REGION ^ resize
