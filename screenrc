@@ -9,8 +9,7 @@
 #  %H .. Host name
 #  %l .. Load average
  
-windowlist string "%n:%t"
-hardstatus alwayslastline "{= bw}%-w%{= wk}%n:%t%{= bw}%+w %{= wk}%=%{= gw} %H (%l)"
+hardstatus alwayslastline "%{= bw}%-w%{= wb}%n%f %t%{= bw}%+w%{= bw}%=%{= gw} %H (%l)"
  
 # scroll buffer
 defscrollback 4000
@@ -26,3 +25,10 @@ bind -c REGION 1 only
 bind -c REGION 0 remove
 bind -c REGION o focus
 bind -c REGION ^ resize
+
+# reload settings
+bind R eval "source $HOME/.screenrc"
+
+# disable xoff
+bind s
+
