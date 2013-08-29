@@ -1,0 +1,4 @@
+#!/bin/bash
+
+head -1 /proc/stat | awk '{total=$2+$3+$4+$5;printf "%2.2f'%' %2.2f",($2+$3)*100/total,$4*100/total}'
+
