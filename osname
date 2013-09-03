@@ -3,6 +3,12 @@
 if [ -f /etc/lsb-release -o -d /etc/lsb-release.d ]; then
   ver=$(/usr/bin/lsb_release -d -s | sed s/\"//g )
   echo $ver
+elif [ -f /etc/centos-release ]; then
+  ver=$(cat /etc/centos-release | awk '{print $(NF-1)}')
+  echo "CentOS $ver"
+elif [ -f /etc/redhat-release ]; then
+  ver=$(cat /etc/redhat-release | awk '{print $(NF-1)}')
+  echo "Red Hat $ver"
 elif [ -f /etc/debian_version ]; then
   echo "Debian"
 fi
