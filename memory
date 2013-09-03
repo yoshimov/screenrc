@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+total=$(grep MemTotal: /proc/meminfo | awk '{print $2}')
+total=$(expr $total / 1000)
+used=$(grep Active: /proc/meminfo | awk '{print $2}')
+used=$(expr $used / 1000)
+echo "${used}M/${total}M"
+

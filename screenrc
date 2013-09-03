@@ -8,11 +8,13 @@
 #  %= .. space padding
 #  %H .. Host name
 #  %l .. Load average
-#  %`0 .. backtick contents
+#  %0` .. backtick contents
  
-hardstatus alwayslastline "%{= bw}%-w%{= wb}%n%f %t%{= bw}%+w%{= bw}%=%{= gw} %H (%l)"
+hardstatus alwayslastline "%{= yk} %0`@%H (%2`,%1`)%{= bw} %-w%{= wb}%n%f %t%{= bw}%+w"
 
-#backtick 0 5 5 bash $HOME/screenrc/cpu
+backtick 0 300 300 whoami
+backtick 1 30 30 bash $HOME/screenrc/memory
+backtick 2 30 30 bash $HOME/screenrc/cpu
  
 # scroll buffer
 defscrollback 4000

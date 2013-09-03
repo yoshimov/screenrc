@@ -1,4 +1,27 @@
 #!/bin/bash
 
-head -1 /proc/stat | awk '{total=$2+$3+$4+$5;printf "%2.2f'%' %2.2f",($2+$3)*100/total,$4*100/total}'
+PRE=/tmp/prestat
+CUR=/proc/stat
+
+if [ ! -f $PRE ]; then
+  cp -f $CUR $PRE
+  exit 1;
+fi
+
+pretotal=$(head -1 $PRE | awk '{print $2+$3+$4+$5}')
+preidle=$(head -1 $PRE | awk '{print $5}')
+
+ctotal=$(head -1 $CUR | awk '{print $2+$3+$4+$5}')
+cidle=$(head -1 $CUR | awk '{print $5}')
+
+cp -f $CUR $PRE
+
+dtotal=$(expr $ctotal - $pretotal)
+didle=$(expr $cidle - $preidle)
+
+#echo $dtotal
+#echo $didle
+
+used=$(expr $(expr $(expr $dtotal - $didle) \* 100) / $dtotal)
+echo "$used%"
 
