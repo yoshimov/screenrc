@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+if [ -f /etc/lsb-release -o -d /etc/lsb-release.d ]; then
+  ver=$(/usr/bin/lsb_release -d -s)
+  echo $ver
+elif [ -f /etc/debian_version ]; then
+  echo "Debian"
+fi
+

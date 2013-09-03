@@ -8,13 +8,24 @@
 #  %= .. space padding
 #  %H .. Host name
 #  %l .. Load average
+#  %c .. time
+#  %D .. weekday name
+#  %M .. month name
+#  %d .. day number
 #  %0` .. backtick contents
  
-hardstatus alwayslastline "%{= yk} %0`@%H (%2`,%1`)%{= bw} %-w%{= wb}%n%f %t%{= bw}%+w"
+# full ver
+#hardstatus alwayslastline "%{= bw} %{=b ky}%0`@%H %{= ky}%3`%{= bw} %=%{= kg}CPU:%2`,MEM:%1` %M %d,%c%{= bw} "
+#caption always "%{= bw} %-w%{= wb}%n%f %t%{-}%+w"
+
+# short ver
+hardstatus alwayslastline "%{=b kg} %H %{= kg}%3`% %{= gk}%2`,%1`%{= bw} %-w%{= wb}%n %t%{-}%+w "
+caption splitonly "%{= bw} %-w%{= wb}%n%f %t%{-}%+w"
 
 backtick 0 300 300 whoami
 backtick 1 30 30 bash $HOME/screenrc/memory
 backtick 2 10 10 bash $HOME/screenrc/cpu
+backtick 3 300 300 bash $HOME/screenrc/osname
  
 # scroll buffer
 defscrollback 4000
