@@ -14,7 +14,7 @@ hardstatus alwayslastline "%{= yk} %0`@%H (%2`,%1`)%{= bw} %-w%{= wb}%n%f %t%{= 
 
 backtick 0 300 300 whoami
 backtick 1 30 30 bash $HOME/screenrc/memory
-backtick 2 30 30 bash $HOME/screenrc/cpu
+backtick 2 10 10 bash $HOME/screenrc/cpu
  
 # scroll buffer
 defscrollback 4000
