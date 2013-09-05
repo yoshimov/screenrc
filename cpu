@@ -11,10 +11,10 @@ fi
 
 awk '
   /cpu /{
-	if (FILENAME == 'stat') {	
-		ctotal = $2+$3+$4+$5; cidle = $5;
-	} else {
+	if (match(FILENAME,"prestat")) {
 		pretotal = $2+$3+$4+$5; preidle = $5;
+	} else {
+		ctotal = $2+$3+$4+$5; cidle = $5;
 	}
   }
   END {
