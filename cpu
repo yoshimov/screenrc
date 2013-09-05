@@ -6,21 +6,23 @@ PRE=/tmp/${USER}-prestat
 
 if [ ! -f $PRE ]; then
   head -1 $CUR > $PRE
-  exit 1;
+  exit 1
 fi
 
 awk '
-  BEGIN { getline < $PRE
-	pretotal=$2+$3+$4+$5
-	preidle=$5
+  /cpu /{
+	if (FILENAME == 'stat') {	
+		ctotal = $2+$3+$4+$5; cidle = $5;
+	} else {
+		pretotal = $2+$3+$4+$5; preidle = $5;
+	}
   }
-  /cpu /{ ctotal = $2+$3+$4+$5; cidle = $5; }
   END {
 	dtotal = ctotal - pretotal
 	didle = cidle - preidle
 	printf("%d%c",(((dtotal - didle) * 100) / dtotal),37)
   }
-' $CUR
+' $PRE $CUR
 
 head -1 $CUR > $PRE
 

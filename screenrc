@@ -48,3 +48,5 @@ bind R eval "source $HOME/.screenrc"
 # disable xoff
 bind s
 
+shell /bin/bash
+
