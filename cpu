@@ -1,7 +1,8 @@
 #!/bin/bash
 
-PRE=/tmp/prestat
 CUR=/proc/stat
+USER=$(whoami)
+PRE=/tmp/${USER}-prestat
 
 if [ ! -f $PRE ]; then
   head -1 $CUR > $PRE
