@@ -4,24 +4,22 @@ PRE=/tmp/prestat
 CUR=/proc/stat
 
 if [ ! -f $PRE ]; then
-  cp -f $CUR $PRE
+  head -1 $CUR > $PRE
   exit 1;
 fi
 
-pretotal=$(head -1 $PRE | awk '{print $2+$3+$4+$5}')
-preidle=$(head -1 $PRE | awk '{print $5}')
+awk '
+  BEGIN { getline < $PRE
+	pretotal=$2+$3+$4+$5
+	preidle=$5
+  }
+  /cpu /{ ctotal = $2+$3+$4+$5; cidle = $5; }
+  END {
+	dtotal = ctotal - pretotal
+	didle = cidle - preidle
+	printf("%d%c",(((dtotal - didle) * 100) / dtotal),37)
+  }
+' $CUR
 
-ctotal=$(head -1 $CUR | awk '{print $2+$3+$4+$5}')
-cidle=$(head -1 $CUR | awk '{print $5}')
-
-cp -f $CUR $PRE
-
-dtotal=$(expr $ctotal - $pretotal)
-didle=$(expr $cidle - $preidle)
-
-#echo $dtotal
-#echo $didle
-
-used=$(expr $(expr $(expr $dtotal - $didle) \* 100) / $dtotal)
-echo "$used%"
+head -1 $CUR > $PRE
 
