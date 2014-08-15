@@ -15,5 +15,8 @@ elif [ -f /etc/rpi-issue ]; then
 elif [ -f /etc/debian_version ]; then
   ver=$(head -1 /etc/debian_version)
   echo "Debian $ver"
+elif [ -f /etc/arch-release ]; then
+  ver=$(uname -r)
+  echo "$ver"
 fi
 
