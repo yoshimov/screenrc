@@ -10,9 +10,14 @@ elif [ -f /etc/centos-release ]; then
 elif [ -f /etc/redhat-release ]; then
   ver=$(cat /etc/redhat-release | awk 'match ($0,/[0-9\.]+/) {print substr($0,RSTART,RLENGTH)}')
   echo "Red Hat $ver"
+elif [ -f /etc/rpi-issue ]; then
+  ver=$(head -1 /etc/rpi-issue | awk '{print $4}')
+  echo "Raspbian $ver"
 elif [ -f /etc/debian_version ]; then
-  echo "Debian"
+  ver=$(head -1 /etc/debian_version)
+  echo "Debian $ver"
 elif [ -f /etc/arch-release ]; then
-  echo "Arch $(cat /proc/sys/kernel/osrelease)"
+  ver=$(uname -r)
+  echo "$ver"
 fi
 
