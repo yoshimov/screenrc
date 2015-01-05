@@ -1,15 +1,18 @@
 #!/usr/bin/bash
 
 if [ -f /etc/lsb-release -o -d /etc/lsb-release.d ]; then
-  ver=$(/usr/bin/lsb_release -d -s | sed s/\"//g )
-  echo $ver
+  os=$(/usr/bin/lsb_release -i -s)
+  ver=$(/usr/bin/lsb_release -r -s)
+  echo $os $ver
 elif [ -f /etc/centos-release ]; then
-  ver=$(cat /etc/centos-release | awk '{print $(NF-1)}')
+  ver=$(cat /etc/centos-release | awk 'match ($0,/[0-9\.]+/) {print substr($0,RSTART,RLENGTH)}')
   echo "CentOS $ver"
 elif [ -f /etc/redhat-release ]; then
-  ver=$(cat /etc/redhat-release | awk '{print $(NF-1)}')
+  ver=$(cat /etc/redhat-release | awk 'match ($0,/[0-9\.]+/) {print substr($0,RSTART,RLENGTH)}')
   echo "Red Hat $ver"
 elif [ -f /etc/debian_version ]; then
   echo "Debian"
+elif [ -f /etc/arch-release ]; then
+  echo "Arch $(cat /proc/sys/kernel/osrelease)"
 fi
 
